@@ -12,10 +12,16 @@ const postUser = async (req, res) => {
         })
         const data = user.toObject()
         delete data.password
+        var token = jwt.sign({
+            email: user.email
+        },
+            process.env.JWT_SECRET
+        )
         console.log(data)
         res.status(201).send({
             status: 201,
-            user
+            user,
+            token
         })
     }
     catch(error) {
